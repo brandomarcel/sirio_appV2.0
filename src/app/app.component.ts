@@ -1,9 +1,12 @@
 import { Location } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
-import { AlertController, IonRouterOutlet, Platform } from '@ionic/angular';
+import { AlertController, IonRouterOutlet, LoadingController, Platform, NavController } from '@ionic/angular';
 import { App } from '@capacitor/app';
 import { UtilService } from './services/util.service';
 import { Router } from '@angular/router';
+import { Capacitor } from '@capacitor/core';
+import { AuthService } from './services/auth.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -17,7 +20,10 @@ export class AppComponent {
     public utilService:UtilService,
     private platform: Platform,
     private router: Router,
-    private location: Location) {
+    private location: Location,
+    private authService:AuthService,
+    private loadingController:LoadingController,
+    private navController:NavController) {
     this.backButtonEvent();
 
   }
@@ -62,54 +68,99 @@ console.log(this.name)
   about() {
    // this.router.navigate(['']);
   }
+  logout() {
+    this.utilService.closeSideMenu();
+    this.utilService.presentConfirm("Confirmar!","Desea cerrar la sesión","No","Si").then(res=>{
+      console.log(res)
+      if (res == 'ok') {
+       this.cerrandoSessionLoading();
+      }
+    });
+ 
+  }
   cerrarApp(){
     this.utilService.closeSideMenu();
 
-    /* const platform = Capacitor.getPlatform();
+    const platform = Capacitor.getPlatform();
     if (platform === "web") {
       this.logout();
     }else{
-      this.utilService.presentConfirm("Confirmar!","Desea cerrar la aplicación?","No","Si").then(res=>{
-        console.log(res)
-        if (res == 'ok') {
-          this.utilService.removeStorage("user");
-          this.utilService.removeStorage("compania");
-          this.utilService.removeStorage("token");
-          this.utilService.removeStorage("abbr");
-          navigator['app'].exitApp();
-        }
-      });
-    }       */
+  this.backButtonAlert();
+    }      
+  }
+
+  async cerrandoSessionLoading() {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Cerrando Sesión...',
+      duration: 1500,
+      spinner:'bubbles'
+    
+      
+    });
+    
+    
+     await loading.present();
+
+    setTimeout(() => {
+     // this.navController.navigateRoot('login');
+     this.utilService.removeStorage("user");
+     this.utilService.removeStorage("compania");
+     this.utilService.removeStorage("token");
+     this.utilService.removeStorage("abbr");
+     this.navController.navigateRoot(['login']);
+    }, 1500);
+  }
+
+  async cerrandoAppLoading() {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Cerrando Aplicación...',
+      duration: 1500,
+      spinner:'bubbles'
+    
+      
+    });
+    
+    
+     await loading.present();
+
+    setTimeout(() => {
+     // this.navController.navigateRoot('login');
+     App.exitApp();
+    }, 1500);
   }
 
   backButtonEvent() {
     console.log('Entro back button');
     this.platform.backButton.subscribeWithPriority(10, () => {
       if (!this.routerOutlet.canGoBack()) {
+        console.log('router',this.router.url);
+        if (this.router.url !='/tabs/home' && this.router.url !='/login' ) {
+          this.router.navigateByUrl("/tabs/home");
+        }else if(this.router.url =='/login'){
+          App.exitApp();
+        }else{
+          this.backButtonAlert();
+        }
         console.log('canGoBack');
-        this.backButtonAlert();
+        console.log('routerOutlet',this.routerOutlet.canGoBack());
+       
       } else {
-        console.log('location');
+        console.log('location',this.location);
         this.location.back();
       }
     });
   }
 
   async backButtonAlert() {
-    const alert = await this.alertController.create({
-      message: 'You pressed the back button',
-      buttons: [{
-        text: 'Cancel',
-        role: 'cancel'
-      },
-      {
-        text: 'Close App',
-        handler: () => {
-          App.exitApp();
-        }
+
+    this.utilService.presentConfirm('Confirmación','Desea salir de la aplicación?','Cancelar','Salir').then(res=>{
+      console.log("respuesta", res)
+      if (res === 'ok') {
+       this.cerrandoAppLoading();
       }
-      ]
     });
-    await alert.present();
+    
   }
 }

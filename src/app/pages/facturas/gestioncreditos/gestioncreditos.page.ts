@@ -6,9 +6,9 @@ import { UtilService } from 'src/app/services/util.service';
 import { ModalController, LoadingController } from '@ionic/angular';
 
 import { Capacitor } from "@capacitor/core"
-/* import { HTTP } from "@ionic-native/http"
+import { HTTP } from "@ionic-native/http"
 import { File } from "@ionic-native/file"
-import { FileOpener } from "@ionic-native/file-opener" */
+import { FileOpener } from "@ionic-native/file-opener/ngx"
 @Component({
   selector: 'app-gestioncreditos',
   templateUrl: './gestioncreditos.page.html',
@@ -20,10 +20,16 @@ export class GestioncreditosPage implements OnInit {
   fecha_hasta: any;
   fecha_actual: any;
   fechamax: any;
+
+  compania:any;
+  token:any;
+  abbr:any;
+
   constructor(public utilService: UtilService,
     private facturacionService: FacturacionService,
     private modalController: ModalController,
-    private loadingController: LoadingController) {
+    private loadingController: LoadingController,
+    private fileOpener: FileOpener) {
     this.fecha_actual = new Date();
   }
 
@@ -34,18 +40,27 @@ export class GestioncreditosPage implements OnInit {
   ionViewWillEnter() {
     this.fecha_desde = "";
     this.fecha_hasta = "";
-    this.get_nota_credito(null, null);
+    this.cargarDatos();
   }
   buscarNota() {
 
-    this.get_nota_credito(this.fecha_desde, this.fecha_hasta)
+    this.get_nota_credito(this.fecha_desde, this.fecha_hasta,this.token,this.compania)
 
   }
 
+  async cargarDatos(){
+    this.compania = await this.utilService.getStorage("compania")
+    
+    this.token = await this.utilService.getStorage("token")
+ 
+    
+    this.get_nota_credito(null,null,this.token,this.compania)
+  }
 
-  get_nota_credito(desde, hasta) {
+
+  get_nota_credito(desde, hasta,token,compania) {
     this.listaNotas = null;
-    this.facturacionService.get_nota_credito(desde, hasta).subscribe(res => {
+    this.facturacionService.get_nota_credito(desde, hasta,token,compania).subscribe(res => {
       this.listaNotas = res['message'].datoList;
 
       console.log(this.listaNotas)
@@ -67,7 +82,7 @@ export class GestioncreditosPage implements OnInit {
 
     modal.onDidDismiss().then((dataDevuelta) => {
       if (dataDevuelta.data) {
-        this.get_nota_credito(null, null);
+        this.get_nota_credito(null, null,this.token,this.compania);
       }
     });
     return await modal.present();
@@ -102,7 +117,7 @@ export class GestioncreditosPage implements OnInit {
   }
 
   async downloadTelefono(url) {
- /*    const loading = await this.loadingController.create({ message: 'Descargando ...' })
+    const loading = await this.loadingController.create({ message: 'Descargando ...' })
     await loading.present();
     const dummyPDF = url.ride;
     const name = url.claveacceso;
@@ -115,13 +130,29 @@ export class GestioncreditosPage implements OnInit {
       this.abrirTelefono().then(res => {
         loading.dismiss();
       });
-    }) */
+    })
 
   }
 
   async abrirTelefono() {
 
- /* A */
+    const filePath = sessionStorage.getItem("DUMMY")
+    if (!filePath) {
+      this.utilService.errorToast("No se ha descargado el archivo")
+    } else {
+
+
+      // Se debe especificar que tipo de archivo es
+      const mimeType = "application/pdf"
+      // Abrir archivo
+      await this.fileOpener.open(filePath, mimeType).then(res => {
+        console.log(res)
+        return res
+      }, error => {
+        console.error(error)
+        this.utilService.errorToast("Error al visualizar!")
+      })
+    }
   }
 
 
@@ -129,7 +160,7 @@ export class GestioncreditosPage implements OnInit {
     this.listaNotas = null;
     this.fecha_desde = "";
     this.fecha_hasta = "";
-    this.get_nota_credito(null, null);
+    this.get_nota_credito(null, null,this.token,this.compania);
   }
 
 }

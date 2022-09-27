@@ -109,14 +109,13 @@ abbr:any;
     return this.http.post(url,datos, { responseType: 'blob', headers: headers })
   }
 
-  get_nota_credito(desde,hasta){  
+  get_nota_credito(desde,hasta,token,compania){  
     let  requestOptions = { headers:    new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': this.token
+      'Authorization': token
     }) }; 
-     let compania =   sessionStorage.getItem('compania')  ;
     let url= this.apiURL+"method/ec_erpnext.ec_erpnext.api_rest.nota_de_credito.get_nota_credito"
-    let urlfull  = `${url}?compania=${this.compania}&desde=${desde}&hasta=${hasta}`
+    let urlfull  = `${url}?compania=${compania}&desde=${desde}&hasta=${hasta}`
   
     return this.http.get(urlfull, requestOptions);
      

@@ -24,9 +24,7 @@ export class GestionFacturasPage implements OnInit {
   fecha_desde;
   fecha_actual;
   fechamax: any;
-  downloadUrl: any;
-  pdfUrl = "https://file-examples.com/storage/fe4658769b6331540b05587/2017/10/file-sample_150kB.pdf";
-  downloadProgress = 0;
+
   constructor(public utilService: UtilService,
     private cnx: FacturacionService,
     private loadingController: LoadingController,
@@ -111,48 +109,6 @@ export class GestionFacturasPage implements OnInit {
 
   }
 
-  downloadFile(url?) {
-    this.downloadUrl =  this.pdfUrl;
-console.log(this.downloadUrl)
-    this.http.get(this.downloadUrl, {
-      responseType: 'blob',
-      reportProgress: true,
-      observe: 'events'
-    }).subscribe(async (event) => {
-      if (event.type === HttpEventType.DownloadProgress) {
-        this.downloadProgress = Math.round((100 * event.loaded) / event.total);
-      } else if (event.type === HttpEventType.Response) {
-        this.downloadProgress = 0;
-        const name = this.downloadUrl.substr(this.downloadUrl.lastIndexOf('/') + 1);
-        const base64 = await this.convertBlodToBase64(event.body) as string;
-        const savedFile = await Filesystem.writeFile({
-          path: name,
-          data: base64,
-          directory: Directory.Documents,
-        });
-
-        const path = savedFile.uri;
-
-        console.log(path)
-        //const mimeType = this.getMimetype(sadf)
-      /*   await FileOpener.open(path, mimeType).then(res => {
-          return res
-        }, error => {
-          this.utilService.errorToast("Error al visualizar!")
-        }) */
-      }
-    });
-  }
-  convertBlodToBase64 = (blob: Blob) => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onerror = reject;
-    reader.onload = () => {
-      console.log('convBase64', reader.result);
-      resolve(reader.result);
-    };
-    reader.readAsDataURL(blob);
-  });
-
   async downloadTelefono(url) {
      const loading = await this.loadingController.create({ message: 'Descargando ...' })
      await loading.present();
@@ -184,6 +140,7 @@ console.log(this.downloadUrl)
         await this.fileOpener.open(filePath, mimeType).then(res => {
           return res
         }, error => {
+          console.error(error)
           this.utilService.errorToast("Error al visualizar!")
         })
       }
