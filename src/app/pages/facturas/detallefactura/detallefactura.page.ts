@@ -47,9 +47,9 @@ export class DetallefacturaPage implements OnInit {
       this.utilService.errorToast("Error de conexión!")
     })
   }
-  onBack() {
+  onBack(dato) {
     //this.navController.back();
-    this.modalController.dismiss();
+    this.modalController.dismiss(dato);
   }
 
  async generarNota(){
@@ -57,22 +57,8 @@ export class DetallefacturaPage implements OnInit {
       console.log("respuesta",res)
 
       if (res=='ok') {
-        this.facturacionService.crear_nota_credito("this.name.name").subscribe(res=>{
-        console.log(res)
 
-        if (res["message"].estado==true) {
-          this.utilService.success_msg(res["message"].dato);
-          
-           this.onBack()
-        
-        
-          
-        }else{
-          var error = (res["message"].mensajeError).substring(17,67);
-          this.utilService.showErrorAlert(error)
-        }
-
-      })
+       this.generar_Nota(this.nuevo.name);
  
       }
       
@@ -80,4 +66,30 @@ export class DetallefacturaPage implements OnInit {
      
     
   }
+  async generar_Nota(name){
+
+    const loading = await this.loadingController.create({ message: "Eliminando..." });
+    loading.present();
+
+    this.facturacionService.crear_nota_credito(name).subscribe(res=>{
+      console.log(res)
+
+      if (res["message"].estado==true) {
+        loading.dismiss();
+        this.utilService.success_msg(res["message"].dato);
+        
+         this.onBack("nota")
+      
+      
+        
+      }else{
+        loading.dismiss();
+        var error = (res["message"].mensajeError).substring(17,67);
+        this.utilService.showErrorAlert(error)
+      }
+
+    })
+  }
+
+  
 }

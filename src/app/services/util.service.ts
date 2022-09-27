@@ -75,7 +75,8 @@ export class UtilService {
       icon: 'success',
       title: title,
       showConfirmButton: false,
-      timer: 1500
+      timer: 1500,
+      heightAuto: false
     });
   }
   async hide() {

@@ -154,7 +154,7 @@ export class NuevoProductoPage implements OnInit {
       loading.dismiss();
       if (res["message"].estado == true) {
         this.utilService.success_msg("Producto creado");
-        this.atrasNuevo("");
+        this.atrasNuevo("guardado");
       } else {
         var error = (res["message"].mensajeError).substring(17, 67);
         this.utilService.showErrorAlert(error)
