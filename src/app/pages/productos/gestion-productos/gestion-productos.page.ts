@@ -17,6 +17,9 @@ export class GestionProductosPage implements OnInit {
   listaProductos: any;
   thingy: any = {};
   cont:boolean;
+  compania:any;
+  token:any;
+  abbr:any;
   public redirectTo: string;
   constructor(public utilService: UtilService,
     private productosService: ProductosService,
@@ -27,17 +30,28 @@ export class GestionProductosPage implements OnInit {
   }
   ngOnInit() {
     console.log("ngOnInit")
-    
+   
 
   }
    ionViewWillEnter() {
     console.log("ionViewWillEnter")   
-    this.listar_productos()
+    this.cargarDatos();
+    
   }
-  async listar_productos() {
-    console.log("entro listar")
 
-    await this.productosService.listar_productos().subscribe(res => {
+  async cargarDatos(){
+    this.compania = await this.utilService.getStorage("compania")
+    
+    this.token = await this.utilService.getStorage("token")
+  
+    this.abbr = await this.utilService.getStorage("abbr")
+    
+    this.listar_productos(  this.compania,  this.abbr,  this.token)
+  }
+   listar_productos(compania,abbr,token) {
+    console.log("entro listar")
+    this.listaProductos = null;
+     this.productosService.listar_productos(compania,abbr,token).subscribe((res: any) => {
       this.listaProductos = res['message'].datoList;
 
       console.log(this.listaProductos)
@@ -65,7 +79,7 @@ export class GestionProductosPage implements OnInit {
 
       console.log(dataDevuelta.data)
       if (dataDevuelta.data) {
-        this.listar_productos();
+        this.listar_productos(this.compania,  this.abbr,  this.token);
       }
     });
     return await modal.present();
@@ -89,7 +103,7 @@ export class GestionProductosPage implements OnInit {
       if (res["message"].estado == true) {
         loading.dismiss();
         this.utilService.success_msg(res["message"].dato);
-        this.listar_productos();
+        this.listar_productos(this.compania,  this.abbr,  this.token);
       } else {
         loading.dismiss();
         this.utilService.showErrorAlert(' Error en eliminación del producto por que tiene facturas vinculadas')

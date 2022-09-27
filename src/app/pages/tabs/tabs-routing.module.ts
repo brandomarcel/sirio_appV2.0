@@ -48,6 +48,22 @@ const routes: Routes = [
         loadChildren: () => import('../facturas/detallefactura/detallefactura.module').then( m => m.DetallefacturaPageModule)
       },
       {
+        path: 'gestion-productos',
+        loadChildren: () => import('../productos/gestion-productos/gestion-productos.module').then( m => m.GestionProductosPageModule)
+      },
+      {
+        path: 'nuevo-producto',
+        loadChildren: () => import('../productos/nuevo-producto/nuevo-producto.module').then( m => m.NuevoProductoPageModule)
+      },
+      {
+        path: 'gestion-clientes',
+        loadChildren: () => import('../clientes/gestion-clientes/gestion-clientes.module').then( m => m.GestionClientesPageModule)
+      },
+      {
+        path: 'nuevo-cliente',
+        loadChildren: () => import('../clientes/nuevo-cliente/nuevo-cliente.module').then( m => m.NuevoClientePageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/home',
         pathMatch: 'full'

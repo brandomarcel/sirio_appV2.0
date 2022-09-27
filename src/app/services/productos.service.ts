@@ -13,7 +13,7 @@ export class ProductosService {
   abbr:any;
 
   constructor(public apiService: ApiService, private http: HttpClient,
-    private utilService:UtilService) {
+    private utilService:UtilService) {/* 
       this.utilService.getStorage("token").then(res=>{
         this.token=res;
         
@@ -23,7 +23,18 @@ export class ProductosService {
       })
       this.utilService.getStorage("abbr").then(res=>{
         this.abbr=res;
-      });
+      }); */
+      this.cargarDatos();
+  }
+
+  async cargarDatos(){
+    
+    console.log("cargarDatos")
+this.compania= await this.utilService.getStorage("compania");
+this.token= await this.utilService.getStorage("token");
+this.abbr= await this.utilService.getStorage("abbr");
+
+   
   }
   crear_producto(data){
     const header = {
@@ -67,16 +78,16 @@ export class ProductosService {
       return this.http.post(url, param, header);
     }
 
-  listar_productos(){
+  listar_productos(compania,abbr,token){
    
     const header = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json', 
-        'Authorization':  this.token
+        'Authorization':  token
       })
     };
 
-    let datos ={company:this.compania,texto_referencia:this.abbr}
+    let datos ={company:compania,texto_referencia:abbr};
     const url= this.apiURL+"method/ec_erpnext.ec_erpnext.api_rest.producto.listar_productos"
     return this.http.post(url, datos, header);
   }
@@ -91,7 +102,7 @@ export class ProductosService {
       })
     };
 
-    let datos ={company:this.compania}
+    let datos ={company:this.compania};
     const url= this.apiURL+"method/ec_erpnext.ec_erpnext.api_rest.producto.listar_iva"
     return this.http.post(url, datos, header);
   }

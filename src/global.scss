@@ -194,7 +194,17 @@ ion-modal.custom_modal {
   &.bottom {
     align-items: flex-end !important;
   }
-  --height: 90vh;
+  --height: 95vh;
+  align-items: flex-end;
+}
+ion-modal.factura_modal {
+  .modal-wrapper {
+    width: 100% !important;
+  }
+  &.bottom {
+    align-items: flex-end !important;
+  }
+  
   align-items: flex-end;
 }
 

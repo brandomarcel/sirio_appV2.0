@@ -1,3 +1,4 @@
+
 /*
   Authors : bunchdevelopers (Rahul Jograna)
   Website : https://bunchdevelopers.com/
@@ -9,9 +10,10 @@
 import { Injectable } from '@angular/core';
 import { LoadingController, AlertController, ToastController, NavController, MenuController } from '@ionic/angular';
 import { Router,NavigationEnd  } from '@angular/router';
-import Swal from 'sweetalert2';
+
 
 import { Preferences } from '@capacitor/preferences';
+import Swal from 'sweetalert2';
 
 
 @Injectable({

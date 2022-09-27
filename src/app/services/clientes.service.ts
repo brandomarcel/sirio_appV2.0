@@ -3,18 +3,17 @@ import { Injectable } from '@angular/core';
 import { environment } from './../../environments/environment';
 import { UtilService } from './util.service';
 import { ApiService } from './api.service';
-import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
-export class ClientesService {
+export class ClientesService{
   private apiURL = environment.apiUrl;
   token:any;
   compania:any;
   abbr:any;
   constructor(public apiService: ApiService, private http: HttpClient,
     private utilService:UtilService) {
-      this.utilService.getStorage("token").then(res=>{
+        this.utilService.getStorage("token").then(res=>{
         this.token=res;
       })
       this.utilService.getStorage("compania").then(res=>{
@@ -25,6 +24,7 @@ export class ClientesService {
       });
 
   }
+
  crear_cliente(data){
     const header = {
       headers: new HttpHeaders({
@@ -52,15 +52,16 @@ export class ClientesService {
       return this.http.post(url, param, header);
     }
 
-  listar_cliente(){
-
+    listar_cliente(compania,token){
+   
+     
       const header = {
         headers: new HttpHeaders({
           'Content-Type': 'application/json', 
-          'Authorization':  this.token
+          'Authorization':  token
         })
       };
-      let datos ={compania:this.compania}
+      let datos = {compania:compania};
       const url= this.apiURL+"method/ec_erpnext.ec_erpnext.api_rest.update.listar_cliente"
       return this.http.post(url, datos, header);
       

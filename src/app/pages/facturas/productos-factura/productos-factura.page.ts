@@ -17,6 +17,9 @@ export class ProductosFacturaPage implements OnInit {
   listaProductos: any;
   control: boolean;
   val: any;
+  compania:any;
+  token:any;
+  abbr:any;
   constructor(private navCtrl: NavController,
     private modalController: ModalController,
     private productosService: ProductosService,
@@ -29,11 +32,22 @@ export class ProductosFacturaPage implements OnInit {
    
   }
   ionViewWillEnter(){
-    this.listar_productos();
+    console.log("ionViewWillEnter")   
+   this.cargarDatos();
+  }
+  
+  async cargarDatos(){
+    this.compania = await this.utilService.getStorage("compania")
+    console.log(  this.compania);
+    this.token = await this.utilService.getStorage("token")
+    console.log(  this.token);
+    this.abbr = await this.utilService.getStorage("abbr")
+    console.log(  this.abbr);
+    this.listar_productos(  this.compania,  this.abbr,  this.token)
   }
 
-  async listar_productos() {
-    this.productosService.listar_productos().subscribe(res => {
+  async listar_productos(compania,abbr,token) {
+    this.productosService.listar_productos(compania,abbr,token).subscribe(res => {
       
       this.listaProductos = res['message'].datoList;
       for (let i = 0; i < res['message'].datoList.length; i++) {

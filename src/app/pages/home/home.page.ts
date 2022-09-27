@@ -1,7 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuController,AlertController,Platform } from '@ionic/angular';
+import { MenuController} from '@ionic/angular';
 import { EmpresaService } from 'src/app/services/empresa.service';
 import { UtilService } from 'src/app/services/util.service';
 

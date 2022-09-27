@@ -25,6 +25,8 @@ export class NuevaFacturaPage implements OnInit {
   iva12:any=0;
   subtotal: any = 0;
   total:any=0;
+  compani:any;
+  token:any;
   constructor(private modalController: ModalController,
     private navController: NavController,
     private clientesService: ClientesService,
@@ -42,12 +44,12 @@ export class NuevaFacturaPage implements OnInit {
 
   }
   ionViewWillEnter() {
-    this.listar_cliente()
+    this.cargarDatos();
 
   }
-  async atrasEditar() {
-    
-    this.navController.back();
+  async atrasEditar(dato) {
+    this.modalController.dismiss(dato);
+    //this.navController.back();
   }
 
   clienteChange(event) {
@@ -55,12 +57,19 @@ export class NuevaFacturaPage implements OnInit {
     this.name = event.value
   }
 
+  async cargarDatos(){
+    this.compani = await this.utilService.getStorage("compania")
+    
+    this.token = await this.utilService.getStorage("token")
+ 
+    
+    this.listar_cliente(this.compani,this.token)
+  }
 
-
-  async listar_cliente() {
+  async listar_cliente(compani,token) {
 
     this.listaClientes = [];
-    await this.clientesService.listar_cliente().subscribe(res => {
+    await this.clientesService.listar_cliente(compani,token).subscribe(res => {
 
       this.listaClientes = res['message'].datoList;
     }, error => {
@@ -74,7 +83,7 @@ export class NuevaFacturaPage implements OnInit {
     var entra = false;
     const modal = await this.modalController.create({
       component: ProductosFacturaPage,
-      cssClass: 'custom_modal',
+      cssClass: 'factura_modal',
       mode: 'ios',
 
     });
@@ -174,7 +183,7 @@ export class NuevaFacturaPage implements OnInit {
           loading.dismiss();
           if (res["message"]) {
             this.utilService.success_msg("Facturado")
-            this.atrasEditar()
+            this.atrasEditar("dato")
            
           } else {
             this.utilService.showErrorAlert("Algo salio mal, intente nuevamente")

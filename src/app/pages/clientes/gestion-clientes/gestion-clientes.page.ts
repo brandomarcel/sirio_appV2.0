@@ -14,6 +14,9 @@ export class GestionClientesPage implements OnInit {
   @ViewChild('search', { static: false }) search: IonSearchbar;
   filterTerm: string;
   listaClientes: any;
+  compania:any;
+  token:any;
+  abbr:any;
   constructor(
     public utilService: UtilService,
     private clientesService: ClientesService,
@@ -27,7 +30,7 @@ export class GestionClientesPage implements OnInit {
 
   }
   ionViewWillEnter() {
-    this.listar_cliente()
+    this.cargarDatos();
   }
 
 
@@ -48,17 +51,24 @@ export class GestionClientesPage implements OnInit {
         if (dataDevuelta.data) {
           console.log("entro ala")
        
-          this.listar_cliente()
+          this.listar_cliente(this.compania, this.token)
       
         }
       });
        return await modal.present();
   
     }
-
-  async listar_cliente() {
-
-    this.clientesService.listar_cliente().subscribe(res => {
+    async cargarDatos(){
+      this.compania = await this.utilService.getStorage("compania")
+      
+      this.token = await this.utilService.getStorage("token")
+   
+      
+      this.listar_cliente(this.compania,this.token)
+    }
+  async listar_cliente(compania,token) {
+    this.listaClientes = null;
+    this.clientesService.listar_cliente(compania,token).subscribe(res => {
       console.log(res)
       this.listaClientes = res['message'].datoList;
       console.log(this.listaClientes)
@@ -92,7 +102,7 @@ export class GestionClientesPage implements OnInit {
         loading.dismiss();
         this.utilService.success_msg(res["message"].dato);
 
-        this.listar_cliente();
+        this.listar_cliente(this.compania, this.token);
 
       } else {
         loading.dismiss();

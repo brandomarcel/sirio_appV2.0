@@ -11,13 +11,17 @@ export class EmpresaService {
   private apiURL = environment.apiUrl;
   token:any;
   compania:any;
+  abbr:any;
   constructor(public apiService: ApiService, private http: HttpClient,
-    private utilService:UtilService,private router:Router) {
+    private utilService:UtilService) {
       this.utilService.getStorage("token").then(res=>{
         this.token=res;
       })
       this.utilService.getStorage("compania").then(res=>{
         this.compania=res;
+      });
+      this.utilService.getStorage("abbr").then(res=>{
+        this.abbr=res;
       });
 
   }

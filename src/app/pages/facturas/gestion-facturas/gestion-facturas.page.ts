@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { NuevaFacturaPage } from './../nueva-factura/nueva-factura.page';
 import { DetallefacturaPage } from './../detallefactura/detallefactura.page';
 import { Component, OnInit } from '@angular/core';
 import { LoadingController, ModalController, NavController } from '@ionic/angular';
@@ -25,6 +27,7 @@ export class GestionFacturasPage implements OnInit {
     private loadingController: LoadingController,
     private navController: NavController,
     private modalController: ModalController,
+    private router:Router
   ) {
 
     this.fecha_actual = new Date();
@@ -45,8 +48,25 @@ export class GestionFacturasPage implements OnInit {
     this.get_facturas(this.fecha_desde, this.fecha_hasta)
   }
 
-  nuevaFactura() {
-    this.navController.navigateRoot("nueva-factura")
+ async nuevaFactura() {
+
+    const modal = await this.modalController.create({
+      component: NuevaFacturaPage,
+      cssClass: 'factura_modal',
+      mode: 'ios',
+      backdropDismiss: true,
+    });
+
+    modal.onDidDismiss().then((dataDevuelta) => {
+
+      console.log(dataDevuelta)
+      if (dataDevuelta.data) {
+        this.get_facturas(null, null);
+      }
+    });
+    return await modal.present();
+
+
   }
   get_facturas(desde, hasta) {
     this.lstFacturas = null;

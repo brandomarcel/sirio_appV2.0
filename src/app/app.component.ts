@@ -33,6 +33,7 @@ export class AppComponent {
     
     console.log("cargarDatos")
 this.name= await this.utilService.getStorage("compania");
+console.log(this.name)
    
   }
 
