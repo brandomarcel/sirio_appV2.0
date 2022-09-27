@@ -1,0 +1,131 @@
+<ion-header>
+  <ion-toolbar lines="none" mode="ios">
+    <ion-buttons slot="start">
+      <ion-button (click)="onBack()">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Productos/Servicios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <div class="searchBar">
+    
+      <ion-searchbar type="text" placeholder="Buscar producto o servicio..." [(ngModel)]="filterTerm"></ion-searchbar>
+ 
+  </div>
+  <ng-container *ngIf="listaProductos | filter:filterTerm as filteredWorkItems">
+    <div class="main_content" *ngFor="let item of listaProductos | filter:filterTerm ; let i=index">
+      <ion-row>
+        <ion-col size="12">
+          <div class="text">
+            <ion-label class="ttl">{{item.nombre_producto}}</ion-label>
+          
+          </div>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row >
+        <ion-col size="8">
+
+          <div class="text">
+
+            <ion-label class="sub_ttl">{{item.grupo}}</ion-label>
+            <ion-label class="sub_ttl">{{item.descripcion}}</ion-label>
+            <ion-label class="sub_ttl">IVA {{item.porcetaje}}%</ion-label>
+            <div class="price">
+              <ion-input  [value]="item.pvp" (ionChange)="pvp($event)" inputmode="numeric" >$  </ion-input>
+             
+            </div>
+           
+            
+          </div>
+
+          
+        </ion-col>
+        <ion-col size="4">
+
+          <div class="text">
+          
+            <div class="btn">
+              <ion-buttons slot="start">
+                <ion-button (click)="menos(current,i)">
+                  <ion-icon name="remove" color="light"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+    
+              <ion-buttons class="label_number">
+                <ion-button>
+                  
+                  <ion-label>{{item.num}}</ion-label>
+                </ion-button>
+              </ion-buttons>
+    
+              <ion-buttons slot="end" >
+                <ion-button (click)="mas(current,i)">
+                  <ion-icon name="add" color="light"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+            </div>
+            
+          </div>
+    
+        </ion-col>
+        <!-- <ion-col size="3">
+
+          <ion-button style="--background: #FFBA0A;"  (click)="atrasEditar(item)" expand="block">
+            Añadir
+          </ion-button>
+    
+        </ion-col> -->
+      </ion-row>
+
+      <ion-button style="--background: #FFBA0A;"  (click)="atrasEditar(item)" expand="block">
+        Añadir
+      </ion-button>
+    </div>
+
+<!--     <ion-row *ngIf="filteredWorkItems.length === 0" >
+      <ion-col style="text-align: center;">
+       
+      <div style="align-items: center;
+      display: flex;
+      justify-content: center;color: rgba(109, 108, 108, 0.781); font-size: 20px;">
+       <ion-label>No encontrado</ion-label>
+       
+      </div>
+      </ion-col>
+    </ion-row> -->
+
+      
+    <ion-row *ngIf="(listaProductos==false) || filteredWorkItems.length === 0">
+      <ion-col style="text-align: center;">
+  
+        <div style="align-items: center;
+      display: flex;
+      justify-content: center;color: rgba(109, 108, 108, 0.781); font-size: 20px;">
+          <ion-label>No se encontraron Productos o Servicios</ion-label>
+  
+        </div>
+      </ion-col>
+    </ion-row>
+    
+    </ng-container>
+
+
+    <ion-row *ngIf="!listaProductos">
+      <ion-col style="text-align: center;">
+  
+        <div style="align-items: center;
+      display: flex;
+      justify-content: center;">
+          <ion-spinner color="tertiary"></ion-spinner>
+  
+        </div>
+      </ion-col>
+    </ion-row>
+
+
+</ion-content>

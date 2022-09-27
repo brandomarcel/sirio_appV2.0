@@ -1,0 +1,141 @@
+ion-header {
+    ion-toolbar {
+      ion-buttons {
+        border-radius: 50%;
+        // border: 1px solid lightgray;
+        padding: 5px 2px 5px 2px;
+        margin: 10px;
+        ion-button {
+          --border-radius: 50%;
+          ion-icon {
+            font-size: 30px;
+         }
+        }
+      }
+    }
+  }
+
+   .searchBar {
+    margin: 10px;
+    ion-searchbar{
+      --icon-color:#192734;
+      color: #192734;
+    }
+    ion-item {
+      --background: #f4f5f8;
+      --border-radius: 10px;
+      ion-searchbar{
+        --icon-color:red;
+      }
+      .icon {
+        height: 60px;
+        width: 60px;
+        background:#FFBA0A;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        position: absolute;
+        right: 0px;
+        .icn {
+          font-size: 28px;
+          color: #113859;
+          font-family: "bold";
+        }
+      }
+  
+
+      
+    }
+  } 
+  
+  
+
+  .heading {
+    font-family: "bold";
+    margin: 20px;
+    font-size: 20px;
+  }
+  .sub_ {
+    margin-top: 0px;
+    color: 314657;
+    margin-bottom: 10px;
+  }
+  
+  ion-row {
+    //margin: 0px 0px 20px 0px;
+    ion-col {
+      .featured_img {
+        height: 60px;
+        width: 40px;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-radius: 10px;
+      }
+      .text {
+        display: flex;
+        flex-direction: column;
+    
+        .ttl {
+          font-family: "bold";
+          font-size: 17px;
+        }
+        .sub_ttl {
+          font-family: "regular";
+          color: gray;
+          font-size: 13px;
+        }
+        .icn_ttl {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          padding: 2px 0px 2px 0px;
+          ion-icon {
+            font-size: 20px;
+            color: (#ffa124);
+            margin-right: 5px;
+          }
+          ion-label {
+            font-size: 13px;
+            color: gray;
+          }
+        }
+        ion-buttons {
+          //background: linear-gradient(#ffa124, #ff7c31);
+          border-radius: 50%;
+          height: 38px;
+          width: 38px;
+          display: flex;
+          text-align: center;
+          position: absolute;
+          right: 0px;
+          top: 0px;
+        }
+      }
+    }
+  }
+  
+  span {
+
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 51px;
+    height: 51px;
+    margin: 6px;
+    border: 6px solid #fff;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0.5, 0.5, 0.5) infinite;
+    border-color: #000 #000 #000 transparent;
+}
+
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+

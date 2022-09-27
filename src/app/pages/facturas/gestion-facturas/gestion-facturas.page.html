@@ -1,0 +1,146 @@
+<ion-header>
+  <ion-toolbar lines="none" mode="md">
+    <ion-buttons slot="start">
+      <ion-button (click)="utilService.openSideMenu()">
+        <ion-icon name="menu"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title slot="start" >Facturas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+ 
+  <ion-label class="heading">Últimas 10 facturas <ion-icon style="text-align: end; height: 30px; width: 50px;" name="refresh-circle-outline" (click)="reload()" ></ion-icon></ion-label>
+
+  <fieldset>
+    <legend>Filtro por fechas </legend>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+         
+            <ion-label>Desde:</ion-label>
+            <ion-item>
+            <ion-input [(ngModel)]="fecha_desde" [max]="fechamax"  type="date"></ion-input>
+        
+          </ion-item>
+        </ion-col> 
+        <ion-col size="6">
+          <ion-label position="stacking">Hasta:</ion-label>
+          <ion-item>            
+           
+            <ion-input   [(ngModel)] ="fecha_hasta" [max]="fechamax"  type="date" mode="ios"></ion-input>
+        
+          </ion-item>
+
+        </ion-col>
+  
+      </ion-row>
+      <div style="text-align: end;" >
+      <ion-button [disabled]="(!fecha_desde || !fecha_hasta)" mode="ios" (click)="buscarFactura()"  size="small" mode="ios" expand="block" color="warning">Buscar Facturas</ion-button>
+    </div>
+    </ion-grid>
+   </fieldset>
+
+ 
+  
+    <ion-card *ngFor="let item of lstFacturas" >
+      <ion-card-content>
+    
+        <ion-row >
+        <!-- <ion-col size="2" (click)="openRest()">
+          <div class="featured_img" [style.backgroundImage]="'url(assets/images/4.jpg)'"></div>
+        </ion-col> -->
+    
+        <ion-col size="10">
+    
+          <div class="text" >
+            <div class="ttl"> <b>Fecha:</b> {{item.posting_date | date:'dd/MM/yyyy' }}</div>
+            <div class="ttl"><b>Factura:</b> {{item.numfac}}</div>
+            <div class="ttl"><b>Cliente:</b>{{item.customer_name}}</div>
+            <div class="ttl"><b>Subtotal:</b>{{item.total  |currency }}</div>
+            <div class="ttl"><b>IVA:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>{{item.total_taxes_and_charges  |currency}}</div>          
+            <div class="ttl"><b>Total:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{item.grand_total  |currency}}</b></div>
+            <div class="ttl"><b>Estado SRI:</b>{{item.estadosri  }}</div>
+           </div>
+    
+        </ion-col>
+    
+        <ion-col size="2">    
+          <div class="text" >
+           <ion-row>
+              <ion-col>    
+            
+                <ion-buttons    >
+                  <ion-button (click)="verDetalleFacturas(item)" >
+                    <ion-icon slot="start" name="eye" style="color:#192734; font-size:30px" ></ion-icon>
+                  </ion-button>
+                </ion-buttons>
+              </ion-col>
+            </ion-row>
+        
+         
+            <ion-row style="margin: 50px 0px 0px 10px;">
+              <ion-col style="color:red !important" >
+                 
+                    <img *ngIf="item.estadosri=='AUTORIZADO'"   (click)="ride(item)"  src="../../assets/icon/pdf.svg" />
+                  
+              </ion-col>
+            </ion-row>
+            <!-- <ion-row>
+              <ion-col>    
+            
+                <ion-buttons    >
+                  <ion-button (click)="abrirTelefono()" >
+                    <ion-icon slot="start" name="eye" style="color:#192734; font-size:30px" ></ion-icon>
+                  </ion-button>
+                </ion-buttons>
+              </ion-col>
+            </ion-row>
+
+            <ion-row style="margin: 50px 0px 0px 10px;">
+              <ion-col style="color:red !important" >
+                 
+                    <img *ngIf="item.estadosri=='AUTORIZADO'"   (click)="downloadTelefono(item,item)"  src="../../assets/icon/pdf.svg" />
+                  
+              </ion-col>
+            </ion-row> -->
+        
+          </div>
+        
+        </ion-col>
+      </ion-row>
+      </ion-card-content>
+    </ion-card>
+    
+    <ion-row *ngIf="!(lstFacturas)" >
+      <ion-col style="text-align: center;">
+       
+      <div style="align-items: center;
+      display: flex;
+      justify-content: center;">
+       <ion-spinner color="tertiary"></ion-spinner>
+       
+      </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row  *ngIf="(lstFacturas==false)" >
+      <ion-col style="text-align: center;">
+       
+      <div style="align-items: center;
+      display: flex;
+      justify-content: center;color: rgba(109, 108, 108, 0.781); font-size: 20px;">
+       <ion-label>No se encontraron Facturas</ion-label>
+       
+      </div>
+      </ion-col>
+    </ion-row>
+  
+  <ion-fab vertical="bottom" horizontal="end"  slot="fixed">
+    <ion-fab-button style="--background: #FFBA0A; --color: #192734;" (click)="nuevaFactura()" >
+      <ion-icon name="add" style="width: 35px; height: 35px;"></ion-icon>
+    </ion-fab-button>
+    
+  </ion-fab>
+</ion-content>

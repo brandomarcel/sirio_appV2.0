@@ -1,0 +1,191 @@
+ion-header {
+    ion-toolbar {
+      ion-title {
+        padding: 0px;
+        font-family: "bold";
+      }
+      ion-buttons {
+        padding: 5px 2px 5px 2px;
+        margin: 10px;
+        ion-button {
+          height: 40px;
+          width: 40px;
+          border: 1px solid lightgray;
+          --border-radius: 50%;
+          border-radius: 50%;
+          ion-icon {
+            color: gray;
+          }
+        }
+      }
+    }
+  }
+
+  .searchBar {
+    margin: 10px;
+    ion-searchbar{
+      --icon-color:#192734;
+      color: #192734;
+    }
+    ion-item {
+      --background: #f4f5f8;
+      --border-radius: 10px;
+      ion-searchbar{
+        --icon-color:red;
+      }
+      .icon {
+        height: 60px;
+        width: 60px;
+        background:#FFBA0A;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        position: absolute;
+        right: 0px;
+        .icn {
+          font-size: 28px;
+          color: #113859;
+          font-family: "bold";
+        }
+      }
+  
+
+      
+    }
+  } 
+  .main_content {
+    border: 2px solid #f5f6f9;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px 0px 10px 0px;
+    ion-row {
+      ion-col {
+        .img {
+          height: 100px;
+          width: 100px;
+          border-radius: 10px;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-size: cover;
+        }
+        .title {
+          display: flex;
+          flex-direction: column;
+          margin-top: 12px;
+          .ttl {
+            font-size: 15px;
+            font-family: "bold";
+          }
+          .sub_ttl {
+            font-size: 13px;
+            margin: 3px 0px 3px 0px;
+            color: gray;
+          }
+          .icon_title {
+            display: flex;
+            align-items: center;
+            color: #e43d58;
+            margin: 2px 0px 2px 0px;
+            ion-icon {
+              font-size: 20px;
+              margin-right: 5px;
+            }
+            ion-label {
+              font-size: 12px;
+            }
+          }
+        }
+      }
+    }
+    .btn {
+      display: flex;
+      flex-direction: row;
+      padding-bottom: 40px;
+      .content_button {
+        width: 100%;
+        margin-right: 5px;
+        color: #ff7c31;
+        border: 1px solid #ff7c31;
+      }
+      .content_second_button {
+        height: 50px;
+        --background: #ffff;
+        --border-radius: 10px;
+        color: #ff7c31;
+        border: 1px solid #ff7c31;
+        border-radius: 10px;
+        width: 100%;
+        margin-left: 5px;
+      }
+    }
+  }
+  
+
+  ion-row {
+    margin: 10px 0px 10px 0px;
+    ion-col {
+      .featured_img {
+        height: 120px;
+        width: 120px;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-radius: 10px;
+      }
+      .text {
+        display: flex;
+        flex-direction: column;
+        padding-left: 0px;
+        .ttl {
+          font-family: "bold";
+          font-size: 15px;
+        }
+        .sub_ttl {
+          font-family: "regular";
+          color: gray;
+          font-size: 13px;
+        }
+        .price {
+          position: static;
+         
+          ion-input {
+
+            font-family: "bold";
+            font-size: 18px;
+            color: #e43d58;
+          }
+        }
+        .btn {
+          display: flex;
+          flex-direction: row;
+          position: absolute;
+          bottom: 0px;
+          right: 0px;
+          ion-buttons {
+            display: flex;
+            text-align: center;
+            margin: 0px 0px 0px 0px;
+            ion-button {
+              background: linear-gradient(#e43d58, #db6e80);
+              border-radius: 30%;
+              height: 25px;
+              width: 30px;
+            }
+          }
+          .label_number {
+            display: flex;
+            justify-content: center;
+            ion-button {
+              border: 1px solid #000000;
+              background: #ffff;
+            }
+            ion-label {
+              color: #000000;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+  }

@@ -1,3 +1,62 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+
+  <ion-menu side="start" type="overlay" contentId="main" (ionWillOpen)="cargarDatos()">
+
+    <ion-header>
+        <ion-toolbar mode="md">
+          
+          <ion-title style="color: #FFBA0A">Menú de Opciones</ion-title>
+         
+          <ion-buttons slot="end">
+            <ion-back-button (click)="utilService.closeSideMenu()"></ion-back-button>
+            <ion-button (click)="utilService.closeSideMenu()">
+              <ion-icon style="color: #FFBA0A;width: 30px;height: 30px;"  name="close-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+    
+        
+      </ion-header>
+    
+      <ion-content class="ion-padding">
+        <ion-list>
+        <ion-menu-toggle>
+        <h2>Bienvenido!</h2>
+        
+        <h3>{{name}}</h3>
+    
+        <ion-item lines="none" (click)="home()">
+          <ion-icon slot="start" name="home" color="primary"></ion-icon>
+          <ion-label>Inicio</ion-label>
+        </ion-item>
+        <ion-item lines="none" (click)="clientes()">
+          <ion-icon slot="start" name="people" color="primary"></ion-icon>
+          <ion-label>Clientes</ion-label>
+        </ion-item>
+        <ion-item lines="none" (click)="productos()">
+          <ion-icon slot="start" name="cart" color="primary"></ion-icon>
+          <ion-label>Productos/Servicios</ion-label>
+        </ion-item>
+        <ion-item lines="none" (click)="facturas()">
+          <ion-icon slot="start" name="reader" color="primary"></ion-icon>
+          <ion-label>Facturas</ion-label>
+        </ion-item>
+        <ion-item lines="none" (click)="notasCredito()">
+          <ion-icon slot="start" name="bag-sharp" color="primary"></ion-icon>
+          <ion-label>Notas de Crédito</ion-label>
+        </ion-item>
+        <ion-item lines="none" (click)="cerrarApp()">
+          <ion-icon slot="start" name="log-out" color="primary"></ion-icon>
+          <ion-label> <b> Salir </b></ion-label>
+        </ion-item>
+    
+      </ion-menu-toggle>
+    </ion-list>
+      </ion-content>
+    </ion-menu>
+
+    
+
+
+  <ion-router-outlet id="main"></ion-router-outlet>
 </ion-app>

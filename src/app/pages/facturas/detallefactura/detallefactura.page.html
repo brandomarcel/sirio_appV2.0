@@ -1,0 +1,142 @@
+<ion-header>
+  <ion-toolbar lines="none" mode="ios">
+    <ion-buttons slot="start">
+      <ion-button (click)="onBack()">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Detalle Factura</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding" *ngIf="contenido" >
+  <div style="text-align: center;">
+    <ion-label > <b> FACTURA No: {{found.numfac}}</b></ion-label>
+
+  </div>
+  <div class="main_content">
+    <ion-row>
+      <ion-col size="5">
+        <div class="img" [style.backgroundImage]="'url(assets/images/factura.png)'"></div>
+      </ion-col>
+      <ion-col size="7">
+        <div class="title">
+          <ion-label class="ttl">{{listaFactura['dato'].factura[0].customer_name}}</ion-label>
+          <ion-label class="sub_ttl">CI:{{listaFactura['dato'].factura[0].dni}}</ion-label>
+          <ion-label class="sub_ttl">Fecha:{{found.posting_date}}</ion-label>
+          <ion-label class="sub_ttl">Estado SRI:{{found.estadosri}}</ion-label>
+        </div>
+      </ion-col>
+    </ion-row>
+  </div>
+  <ion-label > <b> Productos/Servicios:</b></ion-label>
+  
+  <div class="item_div" >
+
+   <ion-row *ngFor="let item of listaFactura['dato'].items">
+    <ion-col size="8">
+      <ion-label >{{item.item_name}}</ion-label>
+    </ion-col>
+    <ion-col size="1.5">
+      <ion-label >X {{item.stock_qty }}</ion-label>
+    </ion-col>
+    <ion-col size="2.5">
+      <div style="text-align: end;">
+      <ion-label > {{item.price_list_rate| currency}}</ion-label>
+    </div>
+    </ion-col>
+    <div class="line"></div>
+   </ion-row>
+   
+
+  </div>
+
+  <div class="price_div">
+
+    <div class="line"></div>
+
+    <div class="discount_div">
+      <ion-label style="color: black;">Sub Total :</ion-label>
+      <ion-label> {{listaFactura['dato'].factura[0].total | currency}}</ion-label>
+    </div>
+
+    <div class="discount_div">
+      <ion-label style="color: black;">IVA 12%</ion-label>
+      <ion-label> {{listaFactura['dato'].factura[0].total_taxes_and_charges | currency}}</ion-label>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="total">
+      <ion-label>Total</ion-label>
+      <ion-label> {{listaFactura['dato'].factura[0].grand_total | currency}}</ion-label>
+    </div>
+
+  </div>
+Desea realizar una Nota de Crédito ?
+  <ion-button style="--background: #0a7cff;" (click)="generarNota()" expand="block" [disabled]="!(found.status=='Paid')||!(found.estadosri=='AUTORIZADO')">
+    Generar Nota
+  </ion-button>
+
+  <div *ngIf="!(found.status=='Paid')||!(found.estadosri=='AUTORIZADO')" > <span style="color:red;font-size: 12px;"> Ya tiene generada una nota o la factura no esta AUTORIZADO</span></div>
+</ion-content>
+
+
+<ion-content class="ion-padding" *ngIf="!skull">
+
+  <br/>
+  <ion-row>
+    <ion-col offset="4" size="4"  >    
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+      </ion-thumbnail> 
+    </ion-col>  
+  </ion-row>
+  <ion-row>
+   
+
+  
+    <ion-col  offset="1" size="10" >
+  
+      
+      
+      <ion-label class="heading"></ion-label>
+       
+      <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+      <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+        <hr/>
+        <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+    </ion-col> 
+
+    <ion-col  offset="1" size="10" >
+  
+      
+      
+      <ion-label class="heading"></ion-label>
+       
+      <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+      <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+        <hr/>
+        <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+    </ion-col> 
+
+    <ion-col  offset="1" size="10" >
+  
+      
+      
+      <ion-label class="heading"></ion-label>
+       
+      <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+      <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+        <hr/>
+        <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+    </ion-col> 
+  </ion-row>
+  
+  </ion-content>
+

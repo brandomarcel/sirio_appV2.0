@@ -1,0 +1,169 @@
+<ion-header>
+  <ion-toolbar lines="none">
+    <ion-buttons slot="start">
+      <ion-button (click)="atrasEditar()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Nueva Factura</ion-title>
+
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+
+  <ion-accordion-group [multiple]="true" [value]="['cliente','producto']">
+    <ion-accordion value="cliente" >
+      <ion-item slot="header" class="itemAcordeon">
+        <ion-label>Cliente</ion-label>
+      </ion-item>
+      <div slot="content" >
+        <ion-card>
+
+          <ion-item style="--background: #f5f6f9;">
+            <ion-label position="floating">Contribuyente</ion-label>
+            <ionic-selectable id="select" item-content [items]="listaClientes" itemValueField="nombre_completo"
+              itemTextField="nombre_completo" closeButtonText="Cancelar" [canSearch]="true" searchFailText="No se encontraron Clientes."
+              searchPlaceholder="Buscar..." (onChange)="clienteChange($event)" class="texto">
+            </ionic-selectable>
+
+          </ion-item>
+          <ion-item *ngIf="name" style="font-size: 15px;  color: rgba(0, 0, 0, 0.637);--background: #f5f6f9; ">
+            {{name.identificacion}} <br>
+            {{name.correo}}
+
+          </ion-item>
+
+
+        </ion-card>
+      </div>
+    </ion-accordion>
+    <ion-accordion value="producto">
+      <ion-item slot="header" class="itemAcordeon">
+        <ion-label>Productos/Servicios</ion-label>
+      </ion-item>
+      <div slot="content" >
+
+
+
+        <div class="item_div" *ngFor="let item of listaProductos ; let i=index">
+    <!--       <ion-item lines="none">
+            <ion-label>{{item.nombre_producto}}</ion-label><br>
+            <ion-label>{{item.grupo}}</ion-label>
+            <ion-label style="text-align: end;">{{item.num}} </ion-label>
+
+          </ion-item> -->
+
+
+          <ion-row class="description">
+            <ion-col size="12">
+              <ion-row>
+                <ion-col size="2">
+                  <div class="rate">
+                    <ion-icon name="trash" (click)="borrar(item,i)" ></ion-icon>
+    
+                  </div>
+                </ion-col>
+                <ion-col size="8">
+                  <div class="title">
+                    <ion-label>{{item.nombre_producto}}</ion-label>
+                    <!-- <ion-label style="color: #FFBA0A; padding-left: 10px;">X{{item.num}}</ion-label> -->
+                  </div>
+                  <div class="sub_title">
+                    <ion-label>{{item.grupo}}</ion-label>
+                  </div>
+                  <div class="sub_title">
+                    <ion-label>{{item.num}} x {{item.pvp | currency}}</ion-label>
+                  </div>
+                </ion-col>
+                <ion-col size="2">
+                  <div class="precio">
+                    <ion-label>{{item.total | currency}}</ion-label>
+                  </div>
+                </ion-col>
+              </ion-row>
+
+
+              
+              
+
+            </ion-col>
+          </ion-row>
+
+
+        </div>
+        <ion-card>
+
+          <section>
+
+            <ion-button (click)="agregarProducto()" expand="block"
+              style="--background:  rgba(255, 0, 0, 0); color:rgb(83, 129, 228);">
+              Agregar producto/servicio
+              <ion-icon slot="start" name="add"></ion-icon>
+            </ion-button>
+
+          </section>
+
+        </ion-card>
+      </div>
+    </ion-accordion>
+
+  </ion-accordion-group>
+
+
+
+</ion-content>
+<footer class="responsive-footer" >
+  <div class="item_div">
+    <ion-item lines="none">
+      <ion-label>Cantidad total </ion-label>
+      <ion-label style="text-align: end;">{{cantotal}} </ion-label>
+
+    </ion-item>
+
+    <div class="line"></div>
+
+    <ion-item lines="none">
+      <ion-label>Subtotal </ion-label>
+      <ion-label style="text-align: end;">$ {{subtotal}} </ion-label>
+
+    </ion-item>
+
+    <div class="line"></div>
+
+    <ion-item lines="none">
+      <ion-label>IVA 12% </ion-label>
+      <ion-label style="text-align: end;">$ {{iva12}}</ion-label>
+
+    </ion-item>
+
+    <div class="line"></div>
+
+    <ion-item lines="none">
+      <ion-label style="font-size: 25px;font: bold; "> Total </ion-label>
+      <ion-label style="font-size: 25px;font: bold; text-align: end;">$ {{total}} </ion-label>
+
+    </ion-item>
+
+  
+
+      <ion-row>
+        <ion-col size="12">
+          <div>
+          <ion-button color="success" expand="block" (click)="facturar()">
+            <label> FACTURAR</label>
+          </ion-button>
+        </div>
+        </ion-col>
+       <!--  <ion-col size="6"  >
+          <div style="text-align: end;">
+          <ion-button color="success" (click)="facturar()"   >
+            FACTURAR
+          </ion-button>
+        </div>
+        </ion-col> -->
+      </ion-row>
+
+</div>
+</footer>

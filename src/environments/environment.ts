@@ -3,6 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  apiUrl: 'https://sirio.sys-nova.com/api/',
+  //apiUrl: 'http://192.168.100.87:8085/api/',
+
   production: false
 };
 

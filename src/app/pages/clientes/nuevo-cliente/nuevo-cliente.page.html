@@ -1,0 +1,165 @@
+<ion-header *ngIf="anadirEditar" mode="ios">
+  <ion-toolbar  lines="none">
+    <ion-buttons slot="start">
+      <!-- <ion-back-button defaultHref="/" name="close-outline" text="Atras"></ion-back-button> -->
+      <ion-button (click)="atrasNuevo()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title >Nuevo Cliente</ion-title>
+    
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-header *ngIf="!anadirEditar">
+  <ion-toolbar lines="none">
+    <ion-buttons slot="start">
+      <ion-button (click)="atrasNuevo()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title >Editar Cliente</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" *ngIf="contenido">
+<form [formGroup]="nuevoForm" (ngSubmit)="submitForm()">
+  <div class="content">
+    <ion-item lines="none" [disabled]="!anadirEditar">
+      <ion-label position="stacked">Tipo de identificación</ion-label>
+      <ion-select cancelText="Cancelar" interface="action-sheet"  formControlName="tipo_identificacion">
+        <ion-select-option value="04 - RUC">RUC</ion-select-option>
+        <ion-select-option value="05 - CEDULA">CEDULA</ion-select-option>
+        <ion-select-option value="06 - PASAPORTE">PASAPORTE</ion-select-option>
+      
+      </ion-select>
+    </ion-item>
+    <span  *ngIf="isSubmitted && errorControl.tipo_identificacion.errors?.required">
+      *Elija el tipo de identificación.
+    </span>
+
+    <ion-item lines="none" [disabled]="!anadirEditar">
+      <ion-label position="stacked">RUC/CI</ion-label>
+      <ion-input formControlName="identificacion" type="text" maxlength="13" inputmode="numeric" (ionChange)="consultarCedula($event)"></ion-input>
+    </ion-item>
+    <span  *ngIf="isSubmitted && errorControl.identificacion.errors?.required">
+      *Cedula es obligatorio.
+    </span>
+    <span  *ngIf="controlCedula">
+      *Cedula es incorrecta.
+    </span>
+
+    <ion-item lines="none">
+      <ion-label position="stacked">Nombre completo </ion-label>
+      <ion-input formControlName="nombre_completo" autocapitalize="characters"  style="text-transform: uppercase;" inputmode="text"></ion-input>
+    </ion-item>
+    <span  *ngIf="isSubmitted && errorControl.nombre_completo.errors?.required">
+      *Nombre es obligatorio.
+    </span>
+
+    <ion-item lines="none">
+      <ion-label position="stacked">Email</ion-label>
+      <ion-input formControlName="correo" inputmode="email"></ion-input>
+    </ion-item>
+    <span  *ngIf="isSubmitted && errorControl.correo.errors?.required">
+      *Email es obligatorio.
+    </span>
+    <span  *ngIf="isSubmitted && errorControl.correo.errors?.pattern">
+      *Ingrese un correo electronico valido.
+    </span>
+
+    <ion-item lines="none">
+      <ion-label position="stacked">N° Celular</ion-label>
+      <ion-input formControlName="telefono" maxlength="10" type="text" inputmode="tel"></ion-input>
+    </ion-item>
+    <span  *ngIf="isSubmitted && errorControl.telefono.errors?.required ">
+      *Celular es obligatorio.
+    </span>
+    <span  *ngIf="isSubmitted && errorControl.telefono.errors?.pattern">
+      *Celular es incorrecto.
+    </span>
+ 
+
+    <ion-item lines="none">
+      <ion-label position="stacked" >Dirección</ion-label>
+      <ion-input formControlName="direccion" inputmode="text" autocapitalize="words" ></ion-input>
+    </ion-item>
+    <span  *ngIf="isSubmitted && errorControl.direccion.errors?.required">
+      *Dirección es obligatorio.
+    </span>
+
+    <ion-item lines="none">
+      <ion-label position="stacked" >Ciudad</ion-label>
+      <ion-input formControlName="ciudad" inputmode="text" style="text-transform: capitalize;"></ion-input>
+    </ion-item>
+    <span  *ngIf="isSubmitted && errorControl.ciudad.errors?.required">
+      *Ciudad es obligatorio.
+    </span>
+    
+  </div>
+
+  <ion-button  class="content_button" type="submit" expand="block">
+    Guardar
+  </ion-button>
+</form>
+</ion-content>
+
+<ion-content class="ion-padding" *ngIf="!skull">
+
+  <br/>
+  <ion-row>
+    <ion-col offset="4" size="4"  >    
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+      </ion-thumbnail> 
+    </ion-col>  
+  </ion-row>
+  <ion-row>
+   
+
+  
+    <ion-col  offset="1" size="10" >
+  
+      
+      
+      <ion-label class="heading"></ion-label>
+       
+      <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+      <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+        <hr/>
+        <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+    </ion-col> 
+
+    <ion-col  offset="1" size="10" >
+  
+      
+      
+      <ion-label class="heading"></ion-label>
+       
+      <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+      <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+        <hr/>
+        <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+    </ion-col> 
+
+    <ion-col  offset="1" size="10" >
+  
+      
+      
+      <ion-label class="heading"></ion-label>
+       
+      <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+      <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+        <hr/>
+        <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+    </ion-col> 
+  </ion-row>
+  
+  </ion-content>

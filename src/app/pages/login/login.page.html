@@ -1,0 +1,66 @@
+<ion-content class="ion-padding">
+
+  <div class="title">
+    <img src="assets/images/Sirio_logo.png" />
+  </div>
+
+  <div class="title">
+    <ion-label class="heading">Bienvenido!</ion-label>
+    <ion-label class="sub_heading">Inicie sesión es su cuenta.</ion-label>
+  </div>
+<form [formGroup]="loginForm" (ngSubmit)="submitForm()">
+  <div class="main_div">
+
+    <ion-item lines="none">
+         
+           <ion-input formControlName="usuario"  inputmode="text" placeholder="Correo electrónico o usuario " ></ion-input>
+           </ion-item>
+           <span class="error ion-padding" *ngIf="isSubmitted && errorControl.usuario.errors?.required">
+             Campo es obligatorio.
+           </span>
+
+  
+
+    <ion-item lines="none">
+      <ion-input  formControlName="password" type="password" id="password" placeholder="Contraseña" ></ion-input>
+      <ion-icon slot="end" name="eye-off" color="medium" id="ojo" (click)="mostrarPassword()"></ion-icon>
+    </ion-item>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.password.errors?.required">
+      Contraseña es obligatorio.
+    </span>
+
+<!--     <div class="btn">
+      <ion-buttons slot="end">
+        <ion-button (click)="onForgot()" color="medium">
+          Olvido su contraseña?
+          {{testValue}}
+
+        </ion-button>
+      </ion-buttons>
+    </div> -->
+
+    <ion-button class="content_button" type="submit" expand="block">
+      Ingresar
+    </ion-button>
+
+ <!--    <div class="orDiv">
+      <div class="line"></div>
+      <ion-label class="sub_heading">Or Sign in With</ion-label>
+      <div class="line"></div>
+    </div>
+
+    <ion-button class="fb_button" (click)="onfacebook()" expand="block">
+      <ion-icon slot="start" name="logo-facebook"></ion-icon>
+      Continue With Facebook
+    </ion-button>
+    <ion-button class="google_button" (click)="onGoogle()" expand="block" fill="outline" color="dark">
+      <ion-icon slot="start" name="logo-google"></ion-icon>
+      Continue With Google
+    </ion-button>
+
+    <div class="title">
+      <ion-label class="sub_heading">Not A Member? <span (click)="singup()">Join Now</span></ion-label>
+    </div> -->
+  </div>
+</form>
+</ion-content>

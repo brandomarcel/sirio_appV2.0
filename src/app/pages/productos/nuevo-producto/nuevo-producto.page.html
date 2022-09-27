@@ -1,0 +1,143 @@
+
+<ion-header>
+  <ion-toolbar lines="none">
+    <ion-buttons slot="start">
+      <ion-button (click)="atrasNuevo('')">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title *ngIf="!anadirEditar" >Editar Producto</ion-title>
+    <ion-title *ngIf="anadirEditar" >Nuevo Producto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-padding" *ngIf="contenido" >
+<form [formGroup]="nuevoForm" (ngSubmit)="submitForm()">
+  <div class="content">
+
+  
+
+    <ion-item lines="none">
+      <ion-label position="stacked">Nombre del artículo </ion-label>
+      <ion-input formControlName="nombre_producto" autocapitalize="characters"  style="text-transform: uppercase;" inputmode="text"></ion-input>
+    </ion-item>
+    <span  *ngIf="isSubmitted && errorControl.nombre_producto.errors?.required">
+      *Nombre es obligatorio.
+    </span>
+
+    <ion-item lines="none" >
+      <ion-label position="stacked">Tipo de artículo</ion-label>
+      <ion-select interface="action-sheet" cancelText="Cancelar"  formControlName="grupo">
+        <ion-select-option value="Productos">Producto</ion-select-option>
+        <ion-select-option value="Servicios">Servicio</ion-select-option>      
+      </ion-select>
+    </ion-item>
+    <span  *ngIf="isSubmitted && errorControl.grupo.errors?.required">
+      *Tipo es obligatorio.
+    </span>
+
+    <ion-item lines="none">
+      <ion-label position="stacked">Precio de venta</ion-label>
+      <ion-input formControlName="pvp" maxlength="10" inputmode="numeric" ></ion-input>
+    </ion-item>
+    <span  *ngIf="isSubmitted && errorControl.pvp.errors?.required">
+      *Precio es obligatorio.
+    </span>
+
+    <span  *ngIf="isSubmitted && errorControl.pvp.errors?.pattern">
+      *Precio es incorrecto.
+    </span>
+ 
+    <ion-item lines="none" >
+     
+      <ion-label position="stacked">Impuesto del artículo </ion-label>
+      <ion-select  interface="action-sheet" cancelText="Cancelar"  formControlName="impuesto">
+        <ion-select-option  *ngFor="let item of listaIva" [value]="item.iva">{{item.iva}}</ion-select-option>
+          
+      </ion-select>
+    </ion-item>
+    <span  *ngIf="isSubmitted && errorControl.impuesto.errors?.required">
+      *Impuesto es obligatorio.
+    </span>
+
+    <ion-item lines="none">
+      <ion-label position="stacked" >Marca</ion-label>
+      <ion-input formControlName="marca" inputmode="text" autocapitalize="words" ></ion-input>
+    </ion-item>
+    
+    <ion-item lines="none">
+      <ion-label position="stacked" >Descripción</ion-label>
+      <ion-input formControlName="descripcion" inputmode="text" style="text-transform: capitalize;"></ion-input>
+    </ion-item>
+    <span  *ngIf="isSubmitted && errorControl.descripcion.errors?.required">
+      *Descripción es obligatorio.
+    </span>
+    
+  </div>
+
+  <ion-button class="content_button" type="submit" expand="block">
+    Guardar
+  </ion-button>
+</form>
+</ion-content>
+
+<ion-content class="ion-padding" *ngIf="!skull">
+
+  <br/>
+  <ion-row>
+    <ion-col offset="4" size="4"  >    
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+      </ion-thumbnail> 
+    </ion-col>  
+  </ion-row>
+  <ion-row>
+   
+
+  
+    <ion-col  offset="1" size="10" >
+  
+      
+      
+      <ion-label class="heading"></ion-label>
+       
+      <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+      <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+        <hr/>
+        <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+    </ion-col> 
+
+    <ion-col  offset="1" size="10" >
+  
+      
+      
+      <ion-label class="heading"></ion-label>
+       
+      <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+      <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+        <hr/>
+        <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+    </ion-col> 
+
+    <ion-col  offset="1" size="10" >
+  
+      
+      
+      <ion-label class="heading"></ion-label>
+       
+      <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+      <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+        <hr/>
+        <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+    </ion-col> 
+  </ion-row>
+  
+  </ion-content>
+

@@ -1,0 +1,33 @@
+
+ion-header {
+    ion-toolbar {
+      --border-width: 0px;
+      --background: linear-gradient(#192734, #192734);
+      ion-title {
+        font-family: "Outfit", sans-serif;
+      }
+    }
+  }
+  
+  h2 {
+    color: gray;
+    font-size: 20px;
+  }
+  
+  h3 {
+    font-weight: bold;
+    margin-bottom: 4rem;
+  }
+  
+  ion-item {
+    margin: 10px 0px 10px 0px;
+    ion-label {
+      font-family: "Roboto", sans-serif;
+      font-size: 20px;
+    }
+    ion-icon{
+      --ion-color-primary:#e43d58;
+    }
+  }
+  
+  

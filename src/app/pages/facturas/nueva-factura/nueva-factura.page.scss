@@ -1,0 +1,157 @@
+ion-header {
+    ion-toolbar {
+      ion-title {
+        padding: 0px;
+        font-family: "bold";
+      }
+      ion-buttons {
+        padding: 5px 2px 5px 2px;
+        margin: 10px;
+        ion-button {
+          height: 40px;
+          width: 40px;
+          border: 1px solid lightgray;
+          --border-radius: 50%;
+          border-radius: 50%;
+          ion-icon {
+            color: gray;
+          }
+        }
+      }
+    }
+  }
+
+  .bordesregistro{
+    border-radius: 10px 10px 10px 10px;
+       border: 1px solid  #001b83 !important;
+  
+
+
+  }
+
+  
+.itemAcordeon{
+  --background: #FFBA0A;
+
+}
+
+
+.button{
+  position: static; 
+  
+  
+  text-align: center;
+}
+
+.item_div {
+  background: #f5f6f9;
+  border-radius: 10px;
+  margin: 5px;
+  padding: 5px;
+  .line {
+    width: 100%;
+    border-bottom: 1px solid lightgray;
+  }
+  ion-item {
+    --background: #f5f6f9;
+
+    ion-card{
+     
+      ion-row{
+        ion-col{
+          div{
+            text-align: center;
+            
+          }
+        }
+      }
+      
+    }
+
+  }
+}
+
+
+.description {
+  padding: 5px 10px 0px 10px;
+  ion-col {
+    .title {
+      ion-label {
+        font-family: "bold";
+      }
+    }
+    .precio {
+      display: flex;
+      justify-content: flex-end;
+      ion-label {
+        font-family: "bold";
+      }
+    }
+    .sub_title {
+      display: flex;
+      justify-content: flex-start;
+      ion-label {
+        font-family: "regular";
+        color: gray;
+        font-size: 13px;
+      }
+    }
+    .rate {
+      display: flex;
+      justify-content: flex-start;
+      margin: 4px 0px 4px 0px;
+      ion-icon {
+        width: 25px;
+        height: 25px;
+        color: #ff0000;
+        margin-right: 5px;
+      }
+    }
+    .review {
+      display: flex;
+      justify-content: flex-start;
+      flex-direction: row;
+      ion-label {
+        font-family: "regular";
+        color: #ff7c31;
+        font-size: 15px;
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width: 380px) {
+
+  .item_div {
+    background: #f5f6f9;
+    border-radius: 10px;
+    margin: 5px;
+    padding: 5px;
+    .line {
+      width: 100%;
+      border-bottom: 1px solid lightgray;
+    }
+    ion-item {
+      --background: #f5f6f9;
+      height: 35px;
+      ion-label{
+        font-size: 15px;
+      }
+    }
+    ion-card{
+      height: 70px;
+      ion-content{
+        height: 10px;
+      ion-row{
+        ion-col{
+          div{
+            text-align: center;
+          }
+        }
+      }
+ 
+    }
+  }
+  }
+}

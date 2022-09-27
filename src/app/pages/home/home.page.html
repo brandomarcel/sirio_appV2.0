@@ -1,0 +1,81 @@
+ 
+
+ <ion-header>
+  <ion-toolbar lines="none" mode="md">
+    <ion-buttons slot="start">
+      <ion-button (click)="util.openSideMenu()">
+        <ion-icon name="menu"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+ 
+ 
+  </ion-toolbar>
+ 
+</ion-header>  
+<ion-content class="ion-padding" *ngIf="listaInformacion">
+<div style="text-align: center; padding:15px;  " >
+  <img src="assets/images/Sirio_logo.png" style="width: 70%;height: min-content;" />
+</div>
+<br/>
+<ion-row>
+  <ion-col offset="4" size="4"  >    
+      <img [src]="imagen"   />  
+  </ion-col>  
+</ion-row>
+<ion-row>
+ 
+  <ion-col  offset="1" size="10"  >
+
+    
+    
+    <ion-label class="heading">  {{listaInformacion?.razon_social}}</ion-label>
+     
+      <ion-label class="sub_heading">Modo Facturación: {{listaInformacion?.ambiente}}</ion-label>
+      <ion-label class="sub_heading">Fecha expiración de firma: {{listaInformacion?.fecha_caducidad}}</ion-label>
+      <hr/>
+      <ion-label class="sub_heading"> {{listaInformacion?.plan}}</ion-label>
+      <ion-label class="sub_heading">  {{listaInformacion?.mensual}}</ion-label>
+      <ion-label class="sub_heading">  {{listaInformacion?.anual}}</ion-label>
+  </ion-col>
+
+</ion-row>
+
+</ion-content>
+
+
+<ion-content class="ion-padding" *ngIf="!listaInformacion">
+  <div style="text-align: center; padding:15px;  " >
+    <img src="assets/images/Sirio_logo.png" style="width: 70%;height: min-content;" />
+    <ion-thumbnail slot="start">
+      <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+    </ion-thumbnail>
+  </div>
+  <br/>
+  <ion-row>
+    <ion-col offset="4" size="4"  >    
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+      </ion-thumbnail> 
+    </ion-col>  
+  </ion-row>
+  <ion-row>
+   
+
+  
+    <ion-col  offset="1" size="10" >
+  
+      
+      
+      <ion-label class="heading">  {{listaInformacion?.razon_social}}</ion-label>
+       
+      <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+      <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+        <hr/>
+        <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+    </ion-col> 
+  </ion-row>
+  
+  </ion-content>
