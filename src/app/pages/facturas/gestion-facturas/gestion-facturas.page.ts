@@ -125,7 +125,7 @@ export class GestionFacturasPage implements OnInit {
   async verDetalleFacturas(item) {
    /*  console.log(name)
     this.navController.navigateRoot("detallefactura/" + name.name) */
-
+    console.log(item)
     const modal = await this.modalController.create({
       component: DetallefacturaPage,
       cssClass: 'custom_modal',

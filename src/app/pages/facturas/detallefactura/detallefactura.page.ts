@@ -11,7 +11,7 @@ import { UtilService } from 'src/app/services/util.service';
   styleUrls: ['./detallefactura.page.scss'],
 })
 export class DetallefacturaPage implements OnInit {
-  @Input() name:any;
+  @Input() nuevo:any;
   factura_name:any;
   estado:boolean=false;
   id:any;
@@ -30,27 +30,11 @@ export class DetallefacturaPage implements OnInit {
    }
 
   ngOnInit() {
-    console.log("oniit")
+    console.log("oniit",this.nuevo.name)
    
-    this.id = this.activatedRoute.snapshot.params['id']
-    console.log(this.id)
-    this.get_facturas(null,null,this.id)
+    this.get_detalle_factura(this.nuevo.name)
   }
-  get_facturas(desde, hasta,id) {
-    var lstFacturas=null;
-     this.facturacionService.get_facturas(desde, hasta).subscribe((data: any) => {
-      lstFacturas = data.message.datoList;
-      this.found = lstFacturas.find(element => element.name == id);
-      console.log(this.found)
 
-      this.get_detalle_factura(this.found.name)
-    }, error => {
-      console.error(error);
-      this.utilService.errorToast("Error de conexión!")
-    }
-
-    )
-  }
   get_detalle_factura(name){
 
     this.facturacionService.get_detalle_factura(name).subscribe(res=>{
@@ -59,11 +43,13 @@ export class DetallefacturaPage implements OnInit {
       this.skull=true;
       this.contenido=true;
     },error =>{
+      console.error(error)
       this.utilService.errorToast("Error de conexión!")
     })
   }
   onBack() {
-    this.navController.back();
+    //this.navController.back();
+    this.modalController.dismiss();
   }
 
  async generarNota(){
@@ -71,7 +57,7 @@ export class DetallefacturaPage implements OnInit {
       console.log("respuesta",res)
 
       if (res=='ok') {
-        this.facturacionService.crear_nota_credito(this.name.name).subscribe(res=>{
+        this.facturacionService.crear_nota_credito("this.name.name").subscribe(res=>{
         console.log(res)
 
         if (res["message"].estado==true) {

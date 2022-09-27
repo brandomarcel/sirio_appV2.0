@@ -10,7 +10,7 @@
 </ion-header>
 <ion-content class="ion-padding" *ngIf="contenido" >
   <div style="text-align: center;">
-    <ion-label > <b> FACTURA No: {{found.numfac}}</b></ion-label>
+    <ion-label > <b> FACTURA No: {{nuevo.numfac}}</b></ion-label>
 
   </div>
   <div class="main_content">
@@ -22,8 +22,8 @@
         <div class="title">
           <ion-label class="ttl">{{listaFactura['dato'].factura[0].customer_name}}</ion-label>
           <ion-label class="sub_ttl">CI:{{listaFactura['dato'].factura[0].dni}}</ion-label>
-          <ion-label class="sub_ttl">Fecha:{{found.posting_date}}</ion-label>
-          <ion-label class="sub_ttl">Estado SRI:{{found.estadosri}}</ion-label>
+          <ion-label class="sub_ttl">Fecha:{{nuevo.posting_date}}</ion-label>
+          <ion-label class="sub_ttl">Estado SRI:{{nuevo.estadosri}}</ion-label>
         </div>
       </ion-col>
     </ion-row>
@@ -73,11 +73,11 @@
 
   </div>
 Desea realizar una Nota de Crédito ?
-  <ion-button style="--background: #0a7cff;" (click)="generarNota()" expand="block" [disabled]="!(found.status=='Paid')||!(found.estadosri=='AUTORIZADO')">
+  <ion-button style="--background: #0a7cff;" (click)="generarNota()" expand="block" [disabled]="!(nuevo.status=='Paid')||!(nuevo.estadosri=='AUTORIZADO')">
     Generar Nota
   </ion-button>
 
-  <div *ngIf="!(found.status=='Paid')||!(found.estadosri=='AUTORIZADO')" > <span style="color:red;font-size: 12px;"> Ya tiene generada una nota o la factura no esta AUTORIZADO</span></div>
+  <div *ngIf="!(nuevo.status=='Paid')||!(nuevo.estadosri=='AUTORIZADO')" > <span style="color:red;font-size: 12px;"> Ya tiene generada una nota o la factura no esta AUTORIZADO</span></div>
 </ion-content>
 
 

@@ -44,7 +44,7 @@ const routes: Routes = [
         loadChildren: () => import('../facturas/productos-factura/productos-factura.module').then( m => m.ProductosFacturaPageModule)
       },
       {
-        path: 'detallefactura/:id',
+        path: 'detallefactura',
         loadChildren: () => import('../facturas/detallefactura/detallefactura.module').then( m => m.DetallefacturaPageModule)
       },
       {
